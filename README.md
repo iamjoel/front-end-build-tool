@@ -32,7 +32,9 @@
 ## <a name="liveload">Liveload</a>
 使用此功能要安装Chrome插件,[点我安装](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei)。
 执行    
+
 1. `gulp watch`
 1. 用静态服务器打开页面。推荐用使用[anywhere](https://www.npmjs.com/package/anywhere)
 1. 在页面上启用Liveload的Chrome插件
+
 ![enable-gulp-livereload](doc/asserts/img/gulp-livereload.gif)
