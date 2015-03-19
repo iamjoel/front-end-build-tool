@@ -5,22 +5,35 @@ var rename = require('gulp-rename');
 // 用livereload 要装Chrome插件
 // https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei
 var livereload = require('gulp-livereload');
+var header = require('gulp-header');
+var pkg = require('./package.json');
+
+var banner = [
+    '/**',
+    ' ** <%= pkg.name %> - <%= pkg.description %>',
+    ' ** @author <%= pkg.author %>',
+    ' ** @version v<%= pkg.version %>',
+    ' **/',
+    ''
+].join('\n');
 
 var SRC_PATH = 'src';
 var DIST_PATH = 'build';
 
-// 清空目标文件夹的内容
-gulp.task('remove', function() {
-    return gulp.src(DIST_PATH + '/**/*', {
+// 清空js
+gulp.task('clean-js', function() {
+    console.info('js cleaned');
+    return gulp.src(DIST_PATH + '/**/*.js', {
             read: false
         })
         .pipe(clean());
 });
 
-// 压缩
-gulp.task('js-min', function() {
+// 压缩js
+gulp.task('min-js', ['clean-js'],function() {
     return gulp.src(SRC_PATH + '/**/*.js')
         .pipe(uglify()) // 压缩
+        .pipe(header(banner, {pkg: pkg}))// 加文件描述
         .pipe(rename({ // 压缩后的文件加后缀
             suffix: ".min"
         }))
@@ -36,5 +49,7 @@ gulp.task('watch', function() {
     });
 });
 
-gulp.task('build', ['remove', 'js-min']);
+gulp.task('default',['watch']);
 gulp.task('w', ['watch']);
+
+gulp.task('build', ['min-js']);

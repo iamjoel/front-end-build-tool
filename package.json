@@ -1,6 +1,6 @@
 {
   "name": "front-end-build-tool",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "提供前端资源压缩的一些功能",
   "main": "index.js",
   "scripts": {
@@ -10,11 +10,12 @@
     "front-end",
     "workflow"
   ],
-  "author": "",
+  "author": "Joel",
   "license": "ISC",
   "devDependencies": {
     "gulp": "^3.8.11",
     "gulp-clean": "^0.3.1",
+    "gulp-header": "^1.2.2",
     "gulp-livereload": "^3.8.0",
     "gulp-rename": "^1.2.0",
     "gulp-uglify": "^1.1.0"
