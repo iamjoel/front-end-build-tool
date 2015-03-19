@@ -18,6 +18,7 @@
 
 ## 支持功能列表
 * [脚本压缩](#js-min)
+* [脚本代码质量(jshint)](#jshint)
 * [Liveload](#liveload) 页面的css，js，html发生改变时，主动的刷新页面
 
 ## 待支持的功能
@@ -26,8 +27,13 @@
 * 路径的替换：将文件中所有的开发路径和替换成发布路径
 * Liveload 和静态服务器整合到一起
 
+
 ## <a name="js-min">脚本压缩</a>
-执行 `gulp js-min`
+执行 `gulp min-js`    
+脚本压缩前，会执行脚本代码质量(jshint)。压缩后在文件头部加文件描述。
+
+## <a name="js-min">脚本代码质量(jshint)</a>
+本项目的验证规则见 `.jshint`文件。
 
 ## <a name="liveload">Liveload</a>
 使用此功能要安装Chrome插件,[点我安装](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei)。

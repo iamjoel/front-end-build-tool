@@ -37,7 +37,7 @@ gulp.task('min-js', ['clean-js'],function() {
         .pipe(jshint('.jshintrc'))// 代码检查 https://github.com/jshint/jshint/blob/master/examples/.jshintrc
         .pipe(jshint.reporter('jshint-stylish'))
         .pipe(uglify()) // 压缩
-        .pipe(header(banner, {pkg: pkg}))// 加文件描述
+        .pipe(header(banner, {pkg: pkg}))// 在文件头部加文件描述
         .pipe(rename({ // 压缩后的文件加后缀
             suffix: ".min"
         }))
