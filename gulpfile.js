@@ -6,6 +6,8 @@ var rename = require('gulp-rename');
 // https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei
 var livereload = require('gulp-livereload');
 var header = require('gulp-header');
+var jshint = require('gulp-jshint');
+
 var pkg = require('./package.json');
 
 var banner = [
@@ -22,7 +24,7 @@ var DIST_PATH = 'build';
 
 // 清空js
 gulp.task('clean-js', function() {
-    console.info('js cleaned');
+    // console.info('js cleaned');
     return gulp.src(DIST_PATH + '/**/*.js', {
             read: false
         })
@@ -32,6 +34,8 @@ gulp.task('clean-js', function() {
 // 压缩js
 gulp.task('min-js', ['clean-js'],function() {
     return gulp.src(SRC_PATH + '/**/*.js')
+        .pipe(jshint('.jshintrc'))// 代码检查 https://github.com/jshint/jshint/blob/master/examples/.jshintrc
+        .pipe(jshint.reporter('jshint-stylish'))
         .pipe(uglify()) // 压缩
         .pipe(header(banner, {pkg: pkg}))// 加文件描述
         .pipe(rename({ // 压缩后的文件加后缀

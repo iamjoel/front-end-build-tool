@@ -1,3 +1,3 @@
-(function () {
-	console.info('abd');
+(function() {
+    console.info('abd');
 })();

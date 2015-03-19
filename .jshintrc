@@ -1,0 +1,10 @@
+{
+    "camelcase": true,
+    "curly": true,
+    "indent": 4,
+    "latedef": false,
+    "newcap": true,
+    "noarg": true,
+    "noempty": true,
+    "plusplus": true
+}
