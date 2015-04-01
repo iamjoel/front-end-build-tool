@@ -22,6 +22,14 @@ var banner = [
 var SRC_PATH = 'src';
 var DIST_PATH = 'build';
 
+gulp.task('clean', function() {
+    // console.info('js cleaned');
+    return gulp.src(DIST_PATH, {
+            read: false
+        })
+        .pipe(clean());
+});
+
 // 清空js
 gulp.task('clean-js', function() {
     // console.info('js cleaned');
@@ -31,13 +39,16 @@ gulp.task('clean-js', function() {
         .pipe(clean());
 });
 
+
 // 压缩js
-gulp.task('min-js', ['clean-js'],function() {
+gulp.task('min-js', ['clean-js'], function() {
     return gulp.src(SRC_PATH + '/**/*.js')
-        .pipe(jshint('.jshintrc'))// 代码检查 https://github.com/jshint/jshint/blob/master/examples/.jshintrc
+        .pipe(jshint('.jshintrc')) // 代码检查 https://github.com/jshint/jshint/blob/master/examples/.jshintrc
         .pipe(jshint.reporter('jshint-stylish'))
         .pipe(uglify()) // 压缩
-        .pipe(header(banner, {pkg: pkg}))// 在文件头部加文件描述
+        .pipe(header(banner, {
+            pkg: pkg
+        })) // 在文件头部加文件描述
         .pipe(rename({ // 压缩后的文件加后缀
             suffix: ".min"
         }))
@@ -47,13 +58,33 @@ gulp.task('min-js', ['clean-js'],function() {
 // liveload 页面的css，js，html发生改变时，主动的刷新页面
 gulp.task('watch', function() {
     livereload.listen();
-    gulp.watch(SRC_PATH + '/**/*', function (path) {
+    gulp.watch(SRC_PATH + '/**/*', function(path) {
         // console.info('flie changed');
-        livereload.changed(path);// 通知浏览器刷新页面
+        livereload.changed(path); // 通知浏览器刷新页面
     });
 });
 
-gulp.task('default',['watch']);
+
+var spritesmith = require('gulp.spritesmith');
+gulp.task('sprite', function() {
+    // Generate our spritesheet
+    var spriteData = gulp.src(SRC_PATH + '/asserts/img/**/*.png').pipe(spritesmith({
+        imgName: 'sprite.png',
+        cssName: 'sprite.css',
+        padding: 100
+    }));
+
+    spriteData.img
+        // .pipe(imagemin())
+        .pipe(gulp.dest(DIST_PATH + '/asserts/img'));
+
+    spriteData.css
+        // .pipe(csso())
+        .pipe(gulp.dest(DIST_PATH + '/asserts/css'));
+
+});
+
+gulp.task('default', ['watch']);
 gulp.task('w', ['watch']);
 
 gulp.task('build', ['min-js']);
