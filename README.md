@@ -19,6 +19,7 @@
 ## 支持功能列表
 * [脚本压缩](#js-min)
 * [脚本代码质量(jshint)](#jshint)
+* [CSS图片精灵](#css-sprite)
 * [Liveload](#liveload) 页面的css，js，html发生改变时，主动的刷新页面
 
 ## 待支持的功能
@@ -34,6 +35,12 @@
 
 ## <a name="js-min">脚本代码质量(jshint)</a>
 本项目的验证规则见 `.jshint`文件。
+
+## <a name="css-sprite">CSS图片精灵</a>
+执行 `gulp sprite`    
+生成图片精灵。
+
+待做：将某个文件夹文件名称中以`icon-`开头的文件进行合并成一张图片精灵。
 
 ## <a name="liveload">Liveload</a>
 使用此功能要安装Chrome插件,[点我安装](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei)。
