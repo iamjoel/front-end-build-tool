@@ -6,7 +6,8 @@ var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 // 用livereload 要装Chrome插件
 // https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei
-var livereload = require('gulp-livereload');
+// var livereload = require('gulp-livereload');
+
 var header = require('gulp-header');
 var jshint = require('gulp-jshint');
 var stripDebug = require('gulp-strip-debug'); // 该插件用来去掉console和debugger语句
@@ -103,33 +104,42 @@ gulp.task('move-image', ['clean-image'], function() {
 });
 
 // liveload 页面的css，js，html发生改变时，主动的刷新页面
-gulp.task('watch', function() {
-    livereload.listen();
-    gulp.watch(SRC_PATH + '/**/*', function(path) {
-        // console.info('flie changed');
-        livereload.changed(path); // 通知浏览器刷新页面
+// gulp.task('watch', function() {
+//     livereload.listen();
+//     gulp.watch(SRC_PATH + '/**/*', function(path) {
+//         // console.info('flie changed');
+//         livereload.changed(path); // 通知浏览器刷新页面
+//     });
+// });
+// http://www.browsersync.io/docs/gulp/
+var browserSync = require('browser-sync').create();
+gulp.task('browser-sync', function() {
+    browserSync.init({
+        server: {
+            baseDir: "./src/"
+        }
     });
 });
 
 
-var spritesmith = require('gulp.spritesmith');
-gulp.task('sprite', function() {
-    // Generate our spritesheet
-    var spriteData = gulp.src(SRC_PATH + '/asserts/img/**/*.png').pipe(spritesmith({
-        imgName: 'sprite.png',
-        cssName: 'sprite.css',
-        padding: 100
-    }));
+// var spritesmith = require('gulp.spritesmith');
+// gulp.task('sprite', function() {
+//     // Generate our spritesheet
+//     var spriteData = gulp.src(SRC_PATH + '/asserts/img/**/*.png').pipe(spritesmith({
+//         imgName: 'sprite.png',
+//         cssName: 'sprite.css',
+//         padding: 100
+//     }));
 
-    spriteData.img
-        // .pipe(imagemin())
-        .pipe(gulp.dest(DIST_PATH + '/asserts/img'));
+//     spriteData.img
+//         // .pipe(imagemin())
+//         .pipe(gulp.dest(DIST_PATH + '/asserts/img'));
 
-    spriteData.css
-        // .pipe(csso())
-        .pipe(gulp.dest(DIST_PATH + '/asserts/css'));
+//     spriteData.css
+//         // .pipe(csso())
+//         .pipe(gulp.dest(DIST_PATH + '/asserts/css'));
 
-});
+// });
 
 // 清空js
 gulp.task('clean-js', function() {
@@ -160,5 +170,4 @@ gulp.task('clean-image', function() {
         .pipe(clean());
 });
 
-gulp.task('default', ['watch']);
-gulp.task('w', ['watch']);
+gulp.task('default', ['browser-sync']);
