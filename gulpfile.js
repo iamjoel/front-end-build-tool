@@ -4,9 +4,6 @@ var clean = require('gulp-clean');
 var uglify = require('gulp-uglify');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
-// 用livereload 要装Chrome插件
-// https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei
-// var livereload = require('gulp-livereload');
 
 var header = require('gulp-header');
 var jshint = require('gulp-jshint');
@@ -103,18 +100,11 @@ gulp.task('move-image', ['clean-image'], function() {
         .pipe(gulp.dest(DIST_PATH));
 });
 
-// liveload 页面的css，js，html发生改变时，主动的刷新页面
-// gulp.task('watch', function() {
-//     livereload.listen();
-//     gulp.watch(SRC_PATH + '/**/*', function(path) {
-//         // console.info('flie changed');
-//         livereload.changed(path); // 通知浏览器刷新页面
-//     });
-// });
 // http://www.browsersync.io/docs/gulp/
 var browserSync = require('browser-sync').create();
 gulp.task('browser-sync', function() {
     browserSync.init({
+        files: "**",
         server: {
             baseDir: "./src/"
         }
